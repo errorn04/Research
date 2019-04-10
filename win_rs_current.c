@@ -129,7 +129,7 @@ void run_shell( char *server, int port ){
 					
 				}
 				
-					DEF_BUFF = htons( DEF_BUFF );
+					//DEF_BUFF = htons( DEF_BUFF );
 					if ( recv_cmd == DEF_BUFF ) {
 						recv_cmd = recv( sock, (char *)recv_data, DEF_BUFF, 0 );
 						printf("recv_cmd: %d\n", recv_cmd);
